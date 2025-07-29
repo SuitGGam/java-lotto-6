@@ -4,17 +4,11 @@ import java.util.List;
 
 public class WinningLotto {
     
-    private final List<Integer> numbers;
+    private final List<Integer> winningsNumbers;
+    private final List<Integer> bounsNumber;
     
-    public WinningLotto(List<Integer> numbers) {
-        validate(numbers);
-        this.numbers = numbers;
+    public WinningLotto(List<Integer> winningsNumbers, List<Integer> bounsNumber) {
+        this.winningsNumbers = winningsNumbers;
+        this.bounsNumber = bounsNumber;
     }
-    
-    private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException();
-        }
-    }
-
 }
