@@ -1,16 +1,13 @@
 package lotto.service;
 
-import lotto.domain.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class LottoServiceTest {
+public class IssuedLottoServiceTest {
     
     @DisplayName("로또를 구매한다.")
     @Test
@@ -65,11 +62,10 @@ public class LottoServiceTest {
     @Test
     void confirmWinningSuccess() { // 성공 케이스 - 로또 당첨 여부 확인에 성공한 경우
         // given
-        Lotto lotto = new Lotto();
         LottoService lottoService = new LottoService();
         
         // when & then
-        assertThatCode(() -> lottoService.confirmWinning(lotto.getWinningLotto()))
+        assertThatCode(() -> lottoService.confirmWinning(위닝로또 넣어야 함))
                 .doesNotThrowAnyException();
     }
     
@@ -77,11 +73,10 @@ public class LottoServiceTest {
     @Test
     void confirmWinningFail() { // 실패 케이스 - 로또 당첨 여부 확인에 실패한 경우
         // given
-        Lotto lotto = new Lotto();
         LottoService lottoService = new LottoService();
         
         // when & then
-        assertThatThrownBy(() -> lottoService.confirmWinning(lotto.getWinningLotto()))
+        assertThatThrownBy(() -> lottoService.confirmWinning(위닝로또 넣어야 함)
                 .isInstanceOf(IllegalArgumentException.class);
     }
     

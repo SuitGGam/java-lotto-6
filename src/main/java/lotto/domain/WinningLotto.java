@@ -1,14 +1,18 @@
 package lotto.domain;
 
+import lotto.validation.LottoNumbersValidation;
+
 import java.util.List;
 
 public class WinningLotto {
     
-    private final List<Integer> winningsNumbers;
-    private final List<Integer> bounsNumber;
+    private final List<Integer> winningNumbers;
     
-    public WinningLotto(List<Integer> winningsNumbers, List<Integer> bounsNumber) {
-        this.winningsNumbers = winningsNumbers;
-        this.bounsNumber = bounsNumber;
+    public WinningLotto(List<Integer> winningNumbers) {
+        LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
+        lottoNumbersValidation.areSix(winningNumbers);
+        lottoNumbersValidation.areValidRange(winningNumbers);
+        lottoNumbersValidation.areDuplicated(winningNumbers);
+        this.winningNumbers = winningNumbers;
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class LottoValidationTest {
+public class IssuedLottoValidationTest {
 
     @DisplayName("로또 구매 금액이 숫자로만 이루어져 있어야 한다.")
     @Test
@@ -39,7 +39,7 @@ public class LottoValidationTest {
     @Test
     void lottoNumbersInputIsCorrect() { // 성공 케이스 - 로또 번호 입력 형식이 올바른 경우
         // given
-        String lottoNumbers = "1, 2, 3, 4, 5, 6";
+        String lottoNumbers = "1,2,3,4,5,6";
         InputValidation inputValidation = new InputValidation();
 
         // when & then
