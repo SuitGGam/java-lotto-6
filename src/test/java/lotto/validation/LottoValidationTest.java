@@ -10,24 +10,24 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LottoValidationTest {
 
-    @DisplayName("로또 구매 금액이 숫자와 ,로만 이루어져 있어야 한다.")
+    @DisplayName("로또 구매 금액이 숫자로만 이루어져 있어야 한다.")
     @Test
     void priceInputIsCorrect() { // 성공 케이스 - 구매 금액 입력 형식이 올바른 경우
         // given
-        String pay = "1,000";
+        String pay = "1000";
         InputValidation inputValidation = new InputValidation();
 
         // when & then
         assertThat(inputValidation.inputOfPayIsCorrect(pay)).isEqualTo(true);
     }
 
-    @DisplayName("로또 구매 금액이 숫자와 ,외의 것들로 이루어져 있다.")
+    @DisplayName("로또 구매 금액이 숫자 외의 것들로 이루어져 있다.")
     @Test
     void priceInputIsIncorrect() { // 실패 케이스 - 구매 금액 입력 형식이 올바르지 않은 경우
         // given
-        String pay = "1.000";
+        String pay = "1,000";
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 로또 번호는 숫자만 입력해 주세요.";
+        String expectedMessage = "[ERROR] 구매 금액은 숫자만 입력해 주세요.";
         
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfPayIsCorrect(pay))
@@ -35,7 +35,7 @@ public class LottoValidationTest {
                 .hasMessageContaining(expectedMessage);
     }
 
-    @DisplayName("로또 번호가 숫자와 공백, ,로만 이루어져 있어야 한다.")
+    @DisplayName("로또 번호가 숫자와 ,로만 이루어져 있어야 한다.")
     @Test
     void lottoNumbersInputIsCorrect() { // 성공 케이스 - 로또 번호 입력 형식이 올바른 경우
         // given
@@ -46,7 +46,7 @@ public class LottoValidationTest {
         assertThat(inputValidation.inputOflottoNumbersIsCorrect(lottoNumbers)).isEqualTo(true);
     }
 
-    @DisplayName("로또 번호가 숫자와 공백, ,외의 것들로 이루어져 있다.")
+    @DisplayName("로또 번호가 숫자와 ,외의 것들로 이루어져 있다.")
     @Test
     void lottoNumbersInputIsIncorrect() { // 실패 케이스 - 로또 번호 입력 형식이 올바르지 않은 경우
         // given
