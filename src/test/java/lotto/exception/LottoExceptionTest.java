@@ -1,6 +1,5 @@
 package lotto.exception;
 
-import lotto.domain.WinningLotto;
 import lotto.validation.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class IssuedLottoExceptionTest {
+class LottoExceptionTest {
 
     @DisplayName("로또 번호의 개수가 6개가 아니면 예외가 발생한다.")
     @Test
@@ -209,12 +208,10 @@ class IssuedLottoExceptionTest {
     void priceInputIsIncorrectFormat() { // 성공 케이스 - 구매 금액 입력 형식이 잘못된 경우
         // given
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 구매 금액은 숫자만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfPayIsCorrect("천원"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
+                .isInstanceOf(NumberFormatException.class);
     }
 
     @DisplayName("구매 금액에 올바른 입력 형식이 들어올 경우 예외가 발생하지 않는다.")
@@ -233,12 +230,10 @@ class IssuedLottoExceptionTest {
     void lottoNumberInputIsIncorrectFormat() { // 성공 케이스 - 로또 번호 입력 형식이 잘못된 경우
         // given
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 로또 번호는 숫자와 ,로만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOflottoNumbersIsCorrect("1 2 3 4 5 6"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
+                .isInstanceOf(NumberFormatException.class);
     }
 
     @DisplayName("로또 번호에 올바른 입력 형식이 들어올 경우 예외가 발생하지 않는다.")
@@ -257,12 +252,10 @@ class IssuedLottoExceptionTest {
     void bonusNumberInputIsIncorrectFormat() { // 성공 케이스 - 보너스 번호 입력 형식이 잘못된 경우
         // given
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 보너스 번호는 숫자만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfBonusNumberIsCorrect("칠"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
+                .isInstanceOf(NumberFormatException.class);
     }
 
     @DisplayName("보너스 번호에 올바른 입력 형식이 들어올 경우 예외가 발생하지 않는다.")

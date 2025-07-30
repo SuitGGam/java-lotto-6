@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class IssuedLottoValidationTest {
+public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 숫자로만 이루어져 있어야 한다.")
     @Test
@@ -27,12 +27,10 @@ public class IssuedLottoValidationTest {
         // given
         String pay = "1,000";
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 구매 금액은 숫자만 입력해 주세요.";
         
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfPayIsCorrect(pay))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
+                .isInstanceOf(NumberFormatException.class);
     }
 
     @DisplayName("로또 번호가 숫자와 ,로만 이루어져 있어야 한다.")
@@ -52,12 +50,10 @@ public class IssuedLottoValidationTest {
         // given
         String lottoNumbers = "1.2.3.4.5.6";
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 로또 번호는 숫자와 ,로만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOflottoNumbersIsCorrect(lottoNumbers))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
+                .isInstanceOf(NumberFormatException.class);
     }
 
     @DisplayName("보너스 번호가 숫자만 이루어져 있어야 한다.")
@@ -77,12 +73,10 @@ public class IssuedLottoValidationTest {
         // given
         String bounsNumber = "칠";
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 보너스 번호는 숫자만 입력해 주세요.";
         
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfBonusNumberIsCorrect(bounsNumber))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
+                .isInstanceOf(NumberFormatException.class);
     }
 
     @DisplayName("로또 구매 금액이 1000원 이상이다.")

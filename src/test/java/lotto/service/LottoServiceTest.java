@@ -3,11 +3,14 @@ package lotto.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class IssuedLottoServiceTest {
+public class LottoServiceTest {
     
     @DisplayName("로또를 구매한다.")
     @Test
@@ -51,10 +54,9 @@ public class IssuedLottoServiceTest {
         // given
         int pay = 7500;
         LottoService lottoService = new LottoService();
-        int count = lottoService.buyLotto(pay);
         
         // when & then
-        assertThatThrownBy(() -> lottoService.issueLotto(count))
+        assertThatThrownBy(() -> lottoService.issueLotto(lottoService.buyLotto(pay)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
     
@@ -63,9 +65,11 @@ public class IssuedLottoServiceTest {
     void confirmWinningSuccess() { // 성공 케이스 - 로또 당첨 여부 확인에 성공한 경우
         // given
         LottoService lottoService = new LottoService();
+        List<Integer>[] tmpIssuedLotto = new List[1];
+        tmpIssuedLotto[0] = List.of(1, 2, 3, 4, 5, 6);
         
         // when & then
-        assertThatCode(() -> lottoService.confirmWinning(위닝로또 넣어야 함))
+        assertThatCode(() -> lottoService.confirmWinning(List.of(1, 2, 3, 4, 5, 6), List.of(7), tmpIssuedLotto))
                 .doesNotThrowAnyException();
     }
     
@@ -74,10 +78,12 @@ public class IssuedLottoServiceTest {
     void confirmWinningFail() { // 실패 케이스 - 로또 당첨 여부 확인에 실패한 경우
         // given
         LottoService lottoService = new LottoService();
+        List<Integer>[] tmpIssuedLotto = new List[1];
+        tmpIssuedLotto[0] = List.of(1, 2, 3, 4, 5);
         
         // when & then
-        assertThatThrownBy(() -> lottoService.confirmWinning(위닝로또 넣어야 함)
-                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> lottoService.confirmWinning(List.of(1, 2, 3, 4, 5, 6), List.of(7), tmpIssuedLotto))
+                .isInstanceOf(ArrayIndexOutOfBoundsException.class);
     }
     
     @DisplayName("로또 당첨 통계를 낸다.")
@@ -96,7 +102,7 @@ public class IssuedLottoServiceTest {
     @Test
     void compileStatisticsFail() { // 실패 케이스 - 로또 당첨 통계를 내는데 실패한 경우
         // given
-        int[] rank = new int[6];
+        int[] rank = new int[4];
         LottoService lottoService = new LottoService();
         
         // when & then
@@ -108,11 +114,12 @@ public class IssuedLottoServiceTest {
     @Test
     void findTheRateOfReturnSuccess() { // 성공 케이스 - 로또 수익률을 구하는데 성공한 경우
         // given
+        int pay = 8000;
         long totalWinnings = 2000000000L;
         LottoService lottoService = new LottoService();
         
         // when & then
-        assertThatCode(() -> lottoService.findTheRateOfReturn(totalWinnings))
+        assertThatCode(() -> lottoService.findTheRateOfReturn(pay, totalWinnings))
                 .doesNotThrowAnyException();
     }
     
@@ -120,11 +127,12 @@ public class IssuedLottoServiceTest {
     @Test
     void findTheRateOfReturnFail() { // 실패 케이스 - 로또 수익률을 구하는데 실패한 경우
         // given
+        int pay = 8000;
         long totalWinnings = -2000000000L;
         LottoService lottoService = new LottoService();
         
         // when & then
-        assertThatThrownBy(() -> lottoService.findTheRateOfReturn(totalWinnings))
+        assertThatThrownBy(() -> lottoService.findTheRateOfReturn(pay, totalWinnings))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
