@@ -209,7 +209,7 @@ class LottoExceptionTest {
     void priceInputIsIncorrectFormat() { // 성공 케이스 - 구매 금액 입력 형식이 잘못된 경우
         // given
         InputValidation inputValidation = new InputValidation();
-        String expectedMessage = "[ERROR] 로또 번호는 숫자만 입력해 주세요.";
+        String expectedMessage = "[ERROR] 구매 금액은 숫자만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfPayIsCorrect("천원"))
