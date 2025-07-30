@@ -6,9 +6,6 @@ public class InputValidation {
 
     public boolean inputOfPayIsCorrect(String pay) {
         Integer value = Integer.parseInt(pay);
-        if (!(value instanceof Integer)) {
-            throw new IllegalArgumentException("[ERROR] 구매 금액은 숫자만 입력해 주세요.");
-        }
         
         return true;
     }
