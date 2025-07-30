@@ -16,8 +16,8 @@ class LottoExceptionTest {
     @Test
     void lottoNumbersAreNotSix() { // 성공 케이스 - 로또 번호가 6개가 아닌 경우
         // given
-        String expectedMessage = "로또 번호를 6개 입력해 주세요.";
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
+        String expectedMessage = "[ERROR] 로또 번호는 6개를 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> lottoNumbersValidation.areSix(List.of(1, 2, 3, 4, 5, 6, 7)))
@@ -40,8 +40,8 @@ class LottoExceptionTest {
     @Test
     void lottoNumbersAreNotInRange() { // 성공 케이스 - 로또 번호가 범위를 벗어나는 경우
         // given
-        String expectedMessage = "로또 번호의 범위는 1 ~ 45입니다.";
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
+        String expectedMessage = "[ERROR] 로또 번호는 1 ~ 45 사이의 숫자로 입력해 주세요.";
         
         // when & then
         assertThatThrownBy(() -> lottoNumbersValidation.areValidRange(List.of(1, 2, 3, 4, 5, 67)))
@@ -64,8 +64,8 @@ class LottoExceptionTest {
     @Test
     void lottoNumbersAreDuplicated() { // 성공 케이스 - 로또 번호가 중복되는 경우
         // given
-        String expectedMessage = "로또 번호가 중복됩니다.";
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
+        String expectedMessage = "[ERROR] 로또 번호에 중복이 있으면 안 됩니다.";
 
         // when & then
         assertThatThrownBy(() -> lottoNumbersValidation.areDuplicated(List.of(1, 2, 3, 4, 5, 5)))
@@ -88,8 +88,8 @@ class LottoExceptionTest {
     @Test
     void bonusNumberIsNotOne() { // 성공 케이스 - 보너스 번호가 1개가 아닌 경우
         // given
-        String expectedMessage = "보너스 번호는 1개만 입력해 주세요.";
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
+        String expectedMessage = "[ERROR] 보너스 번호는 1개만 입력해 주세요.";
         
         // when & then
         assertThatThrownBy(() -> bonusNumberValidation.isOne(List.of(1, 2)))
@@ -112,8 +112,8 @@ class LottoExceptionTest {
     @Test
     void bonusNumberIsNotInRange() { // 성공 케이스 - 보너스 번호가 범위를 벗어나는 경우
         // given
-        String expectedMessage = "보너스 번호의 범위는 1 ~ 45입니다.";
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
+        String expectedMessage = "[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자로 입력해 주세요.";
         
         // when & then
         assertThatThrownBy(() -> bonusNumberValidation.isValidRange(List.of(67)))
@@ -136,8 +136,8 @@ class LottoExceptionTest {
     @Test
     void bonusNumberIsDuplicated() { // 성공 케이스 - 로또 번호와 보너스 번호가 중복되는 경우
         // given
-        String expectedMessage = "로또 번호와 보너스 번호가 중복됩니다.";
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
+        String expectedMessage = "[ERROR] 로또 번호와 보너스 번호에 중복이 있으면 안 됩니다.";
 
         // when & then
         assertThatThrownBy(() -> bonusNumberValidation.isDuplicated(List.of(1, 2, 3, 4, 5, 6), List.of(6)))
@@ -160,8 +160,8 @@ class LottoExceptionTest {
     @Test
     void purchaseAmountIsNotThousand() { // 성공 케이스 - 로또 구매 금액이 1,000원 미만인 경우
         // given
-        String expectedMessage = "로또 최소 구매 금액은 1,000원입니다.";
         PriceValidation priceValidation = new PriceValidation();
+        String expectedMessage = "[ERROR] 로또 구매 최소 금액은 1,000원입니다.";
 
         // when & then
         assertThatThrownBy(() -> priceValidation.atLeastPay(500))
@@ -184,8 +184,8 @@ class LottoExceptionTest {
     @Test
     void purchaseAmountIsNotMultiplesOfThousand() { // 성공 케이스 - 로또 구매 금액이 1,000원 단위가 아닌 경우
         // given
-        String expectedMessage = "로또 구매 금액 단위는 1,000원입니다.";
         PriceValidation priceValidation = new PriceValidation();
+        String expectedMessage = "[ERROR] 로또 구매 금액은 1,000원 단위로 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> priceValidation.isMultiplesOfThousand(1500))
@@ -208,8 +208,8 @@ class LottoExceptionTest {
     @Test
     void priceInputIsIncorrectFormat() { // 성공 케이스 - 구매 금액 입력 형식이 잘못된 경우
         // given
-        String expectedMessage = "구매 금액은 숫자만 입력해 주세요.";
         InputValidation inputValidation = new InputValidation();
+        String expectedMessage = "[ERROR] 로또 번호는 숫자만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfPayIsCorrect("천원"))
@@ -232,8 +232,8 @@ class LottoExceptionTest {
     @Test
     void lottoNumberInputIsIncorrectFormat() { // 성공 케이스 - 로또 번호 입력 형식이 잘못된 경우
         // given
-        String expectedMessage = "로또 번호는 숫자와 ,로 입력해 주세요.";
         InputValidation inputValidation = new InputValidation();
+        String expectedMessage = "[ERROR] 로또 번호는 숫자와 ,로만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOflottoNumbersIsCorrect("1 2 3 4 5 6"))
@@ -256,8 +256,8 @@ class LottoExceptionTest {
     @Test
     void bonusNumberInputIsIncorrectFormat() { // 성공 케이스 - 보너스 번호 입력 형식이 잘못된 경우
         // given
-        String expectedMessage = "보너스 번호는 숫자로 입력해 주세요.";
         InputValidation inputValidation = new InputValidation();
+        String expectedMessage = "[ERROR] 보너스 번호는 숫자만 입력해 주세요.";
 
         // when & then
         assertThatThrownBy(() -> inputValidation.inputOfBonusNumberIsCorrect("칠"))
