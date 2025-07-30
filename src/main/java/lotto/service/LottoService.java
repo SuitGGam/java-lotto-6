@@ -3,12 +3,36 @@ package lotto.service;
 import camp.nextstep.edu.missionutils.Randoms;
 import lotto.domain.LottoConstants;
 import lotto.validation.PriceValidation;
+import lotto.view.LottoInputView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoService {
 
+    public List<Integer>[] runBuy(String pay) {
+        LottoInputView lottoInputView = new LottoInputView();
+        
+        int value = lottoInputView.preProcessPay(pay);
+        int count = buyLotto(value);
+        List<Integer>[] issueLotto = issueLotto(count);
+        
+        return issueLotto;
+    }
+    
+    public int[] runConfirm(String winningLotto, String bonusNumber, List<Integer>[] issuedLotties) {
+        LottoInputView lottoInputView = new LottoInputView();
+        
+        List<Integer> winningNumbers = lottoInputView.preProcessWinningLotto(winningLotto);
+        List<Integer> winningBouns   = lottoInputView.preProcessBonusNumber(bonusNumber);
+        
+        int[] rank = confirmWinning(winningNumbers, winningBouns, issuedLotties);
+        
+        return rank;
+    }
+    
     public int buyLotto(int pay) {
         PriceValidation priceValidation = new PriceValidation();
         priceValidation.atLeastPay(pay);
@@ -22,6 +46,7 @@ public class LottoService {
         for (int i = 0; i < lottiesCount; i++) {
             issuedLotties[i] = new ArrayList<>();
             issuedLotties[i] = Randoms.pickUniqueNumbersInRange(LottoConstants.LOTTO_NUMBER_MIN, LottoConstants.LOTTO_NUMBER_MAX, LottoConstants.LOTTO_NUMBER_COUNT);
+            Collections.sort(issuedLotties[i]);
         }
         
         return issuedLotties;
@@ -61,8 +86,18 @@ public class LottoService {
         return rank;
     }
     
-    public void compileStatistics(int[] rank) {
+    public long compileStatistics(int[] rank) {
         if (rank.length != 5) throw new IllegalArgumentException("[ERROR] 모든 등수에 대한 결과가 넘어오지 않았습니다.");
+        
+        LottoConstants lottoConstants = new LottoConstants();
+        
+        long[] price = {5000, 50000, 1500000, 30000000, 2000000000};
+        long totalWinning = 0;
+        for (int i = 0; i < lottoConstants.LOTTO_RANK; i++) {
+            totalWinning += (long) rank[i] * price[i];
+        }
+        
+        return totalWinning;
     }
     
     public double findTheRateOfReturn(int pay, long totalWinnigs) {
