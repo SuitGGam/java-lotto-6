@@ -14,7 +14,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또를 구매한다.")
     @Test
-    void lottoNumbersAreNotSix() { // 성공 케이스 - 로또 구매에 성공한 경우
+    void lottoNumbersAreNotSix() { // 예외 발생 케이스 - 로또 구매에 성공한 경우
         // given
         int pay = 8000;
         LottoService lottoService = new LottoService();
@@ -25,7 +25,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 구매에 실패한다.")
     @Test
-    void lottoNumbersAreSix() { // 실패 케이스 - 로또 구매에 실패한 경우
+    void lottoNumbersAreSix() { // 예외 미발생 케이스 - 로또 구매에 실패한 경우
         // given
         int pay = 7500;
         LottoService lottoService = new LottoService();
@@ -37,7 +37,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또를 발행한다.")
     @Test
-    void issueLotterySuccess() { // 성공 케이스 - 로또 발행에 성공한 경우
+    void issueLotterySuccess() { // 예외 발생 케이스 - 로또 발행에 성공한 경우
         // given
         int pay = 8000;
         LottoService lottoService = new LottoService();
@@ -50,7 +50,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 발행에 실패한다.")
     @Test
-    void issueLotteryFail() { // 실패 케이스 - 로또 발행에 실패한 경우
+    void issueLotteryFail() { // 예외 미발생 케이스 - 로또 발행에 실패한 경우
         // given
         int pay = 7500;
         LottoService lottoService = new LottoService();
@@ -62,7 +62,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 당첨 여부를 확인한다.")
     @Test
-    void confirmWinningSuccess() { // 성공 케이스 - 로또 당첨 여부 확인에 성공한 경우
+    void confirmWinningSuccess() { // 예외 발생 케이스 - 로또 당첨 여부 확인에 성공한 경우
         // given
         LottoService lottoService = new LottoService();
         List<Integer>[] tmpIssuedLotto = new List[1];
@@ -75,7 +75,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 당첨 여부 확인에 실패한다.")
     @Test
-    void confirmWinningFail() { // 실패 케이스 - 로또 당첨 여부 확인에 실패한 경우
+    void confirmWinningFail() { // 예외 미발생 케이스 - 로또 당첨 여부 확인에 실패한 경우
         // given
         LottoService lottoService = new LottoService();
         List<Integer>[] tmpIssuedLotto = new List[1];
@@ -88,7 +88,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 당첨 통계를 낸다.")
     @Test
-    void compileStatisticsSuccess() { // 성공 케이스 - 로또 당첨 통계를 내는데 성공한 경우
+    void compileStatisticsSuccess() { // 예외 발생 케이스 - 로또 당첨 통계를 내는데 성공한 경우
         // given
         int[] rank = new int[5];
         LottoService lottoService = new LottoService();
@@ -100,7 +100,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 당첨 통계를 내는데 실패한다.")
     @Test
-    void compileStatisticsFail() { // 실패 케이스 - 로또 당첨 통계를 내는데 실패한 경우
+    void compileStatisticsFail() { // 예외 미발생 케이스 - 로또 당첨 통계를 내는데 실패한 경우
         // given
         int[] rank = new int[4];
         LottoService lottoService = new LottoService();
@@ -112,7 +112,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 수익률을 낸다.")
     @Test
-    void findTheRateOfReturnSuccess() { // 성공 케이스 - 로또 수익률을 구하는데 성공한 경우
+    void findTheRateOfReturnSuccess() { // 예외 발생 케이스 - 로또 수익률을 구하는데 성공한 경우
         // given
         int pay = 8000;
         long totalWinnings = 2000000000L;
@@ -125,7 +125,7 @@ public class LottoServiceTest {
     
     @DisplayName("로또 수익률을 내지 못한다.")
     @Test
-    void findTheRateOfReturnFail() { // 실패 케이스 - 로또 수익률을 구하는데 실패한 경우
+    void findTheRateOfReturnFail() { // 예외 미발생 케이스 - 로또 수익률을 구하는데 실패한 경우
         // given
         int pay = 8000;
         long totalWinnings = -2000000000L;

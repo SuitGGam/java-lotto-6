@@ -12,7 +12,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 숫자로만 이루어져 있어야 한다.")
     @Test
-    void priceInputIsCorrect() { // 성공 케이스 - 구매 금액 입력 형식이 올바른 경우
+    void priceInputIsCorrect() { // 예외 발생 케이스 - 구매 금액 입력 형식이 올바른 경우
         // given
         String pay = "1000";
         InputValidation inputValidation = new InputValidation();
@@ -23,7 +23,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 숫자 외의 것들로 이루어져 있다.")
     @Test
-    void priceInputIsIncorrect() { // 실패 케이스 - 구매 금액 입력 형식이 올바르지 않은 경우
+    void priceInputIsIncorrect() { // 예외 미발생 케이스 - 구매 금액 입력 형식이 올바르지 않은 경우
         // given
         String pay = "1,000";
         InputValidation inputValidation = new InputValidation();
@@ -35,7 +35,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호가 숫자와 ,로만 이루어져 있어야 한다.")
     @Test
-    void lottoNumbersInputIsCorrect() { // 성공 케이스 - 로또 번호 입력 형식이 올바른 경우
+    void lottoNumbersInputIsCorrect() { // 예외 발생 케이스 - 로또 번호 입력 형식이 올바른 경우
         // given
         String lottoNumbers = "1,2,3,4,5,6";
         InputValidation inputValidation = new InputValidation();
@@ -46,7 +46,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호가 숫자와 ,외의 것들로 이루어져 있다.")
     @Test
-    void lottoNumbersInputIsIncorrect() { // 실패 케이스 - 로또 번호 입력 형식이 올바르지 않은 경우
+    void lottoNumbersInputIsIncorrect() { // 예외 미발생 케이스 - 로또 번호 입력 형식이 올바르지 않은 경우
         // given
         String lottoNumbers = "1.2.3.4.5.6";
         InputValidation inputValidation = new InputValidation();
@@ -58,7 +58,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호가 숫자만 이루어져 있어야 한다.")
     @Test
-    void bonusNumberInputIsCorrect() { // 성공 케이스 - 보너스 번호 입력 형식이 올바른 경우
+    void bonusNumberInputIsCorrect() { // 예외 발생 케이스 - 보너스 번호 입력 형식이 올바른 경우
         // given
         String bounsNumber = "7";
         InputValidation inputValidation = new InputValidation();
@@ -69,7 +69,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호가 숫자 외의 것들로 이루어져 있다.")
     @Test
-    void bonusNumberInputIsIncorrect() { // 실패 케이스 - 보너스 번호 입력 형식이 올바르지 않은 경우
+    void bonusNumberInputIsIncorrect() { // 예외 미발생 케이스 - 보너스 번호 입력 형식이 올바르지 않은 경우
         // given
         String bounsNumber = "칠";
         InputValidation inputValidation = new InputValidation();
@@ -81,7 +81,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 1000원 이상이다.")
     @Test
-    void lottoPayInputIsAtLeastThousand() { // 성공 케이스 - 로또 구매 금액이 1000원 이상인 경우
+    void lottoPayInputIsAtLeastThousand() { // 예외 발생 케이스 - 로또 구매 금액이 1000원 이상인 경우
         // given
         int pay = 2000;
         PriceValidation priceValidation = new PriceValidation();
@@ -92,7 +92,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 1000원 미만이다.")
     @Test
-    void lottoPayInputIsNotAtLeastThousand() { // 실패 케이스 - 로또 구매 금액이 1000원 미만인 경우
+    void lottoPayInputIsNotAtLeastThousand() { // 예외 미발생 케이스 - 로또 구매 금액이 1000원 미만인 경우
         // given
         int pay = 500;
         PriceValidation priceValidation = new PriceValidation();
@@ -106,7 +106,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 1000원 단위이다.")
     @Test
-    void lottoPayInputIsMultiplesOfThousand() { // 성공 케이스 - 로또 구매 금액이 1000원 단위인 경우
+    void lottoPayInputIsMultiplesOfThousand() { // 예외 발생 케이스 - 로또 구매 금액이 1000원 단위인 경우
         // given
         int pay = 3000;
         PriceValidation priceValidation = new PriceValidation();
@@ -117,7 +117,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 구매 금액이 1000원 단위가 아니다.")
     @Test
-    void lottoPayInputIsNotMultiplesOfThousand() { // 실패 케이스 - 로또 구매 금액이 1000원 단위가 아닌 경우
+    void lottoPayInputIsNotMultiplesOfThousand() { // 예외 미발생 케이스 - 로또 구매 금액이 1000원 단위가 아닌 경우
         // given
         int pay = 1500;
         PriceValidation priceValidation = new PriceValidation();
@@ -131,7 +131,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호가 6개이다.")
     @Test
-    void lottoNumbersAreSix() { // 성공 케이스 - 로또 번호가 6개인 경우
+    void lottoNumbersAreSix() { // 예외 발생 케이스 - 로또 번호가 6개인 경우
         // given
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
 
@@ -141,7 +141,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호가 6개가 아니다.")
     @Test
-    void lottoNumbersAreNotSix() { // 실패 케이스 - 로또 번호가 6개가 아닌 경우
+    void lottoNumbersAreNotSix() { // 예외 미발생 케이스 - 로또 번호가 6개가 아닌 경우
         // given
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
         String expectedMessage = "[ERROR] 로또 번호는 6개를 입력해 주세요.";
@@ -154,7 +154,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호가 1 ~ 45 범위 내에 있다.")
     @Test
-    void lottoNumbersAreInRange() { // 성공 케이스 - 로또 번호가 1 ~ 45 범위 내에 있는 경우
+    void lottoNumbersAreInRange() { // 예외 발생 케이스 - 로또 번호가 1 ~ 45 범위 내에 있는 경우
         // given
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
 
@@ -164,7 +164,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호가 1 ~ 45 범위 밖에 있다.")
     @Test
-    void lottoNumbersAreNotInRange() { // 실패 케이스 - 로또 번호가 1 ~ 45 범위 밖에 있는 경우
+    void lottoNumbersAreNotInRange() { // 예외 미발생 케이스 - 로또 번호가 1 ~ 45 범위 밖에 있는 경우
         // given
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
         String expectedMessage = "[ERROR] 로또 번호는 1 ~ 45 사이의 숫자로 입력해 주세요.";
@@ -177,7 +177,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호에 중복이 없다.")
     @Test
-    void lottoNumbersAreDuplicated() { // 성공 케이스 - 로또 번호가 중복이 없는 경우
+    void lottoNumbersAreDuplicated() { // 예외 발생 케이스 - 로또 번호가 중복이 없는 경우
         // given
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
 
@@ -187,7 +187,7 @@ public class LottoValidationTest {
 
     @DisplayName("로또 번호에 중복이 있다.")
     @Test
-    void lottoNumbersAreNotDuplicated() { // 실패 케이스 - 로또 번호가 중복이 있는 경우
+    void lottoNumbersAreNotDuplicated() { // 예외 미발생 케이스 - 로또 번호가 중복이 있는 경우
         // given
         LottoNumbersValidation lottoNumbersValidation = new LottoNumbersValidation();
         String expectedMessage = "[ERROR] 로또 번호에 중복이 있으면 안 됩니다.";
@@ -200,7 +200,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호가 1개이다.")
     @Test
-    void bonusNumberisOne() { // 성공 케이스 - 보너스 번호가 1개인 경우
+    void bonusNumberisOne() { // 예외 발생 케이스 - 보너스 번호가 1개인 경우
         // given
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
 
@@ -210,7 +210,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호가 1개가 아니다.")
     @Test
-    void bonusNumberisNotOne() { // 실패 케이스 - 보너스 번호가 1개가 아닌 경우
+    void bonusNumberisNotOne() { // 예외 미발생 케이스 - 보너스 번호가 1개가 아닌 경우
         // given
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
         String expectedMessage = "[ERROR] 보너스 번호는 1개만 입력해 주세요.";
@@ -223,7 +223,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호가 1 ~ 45 범위 내에 있다.")
     @Test
-    void bonusNumberIsInRange() { // 성공 케이스 - 보너스 번호가 1 ~ 45 범위 내에 있는 경우
+    void bonusNumberIsInRange() { // 예외 발생 케이스 - 보너스 번호가 1 ~ 45 범위 내에 있는 경우
         // given
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
 
@@ -233,7 +233,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호가 1 ~ 45 범위 밖에 있다.")
     @Test
-    void bonusNumberIsNotInRange() { // 실패 케이스 - 보너스 번호가 1 ~ 45 범위 밖에 있는 경우
+    void bonusNumberIsNotInRange() { // 예외 미발생 케이스 - 보너스 번호가 1 ~ 45 범위 밖에 있는 경우
         // given
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
         String expectedMessage = "[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자로 입력해 주세요.";
@@ -246,7 +246,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호와 로또 번호에 중복이 없다.")
     @Test
-    void bonusNumberIsDuplicated() { // 성공 케이스 - 보너스 번호와 로또 번호에 중복이 없는 경우
+    void bonusNumberIsDuplicated() { // 예외 발생 케이스 - 보너스 번호와 로또 번호에 중복이 없는 경우
         // given
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
 
@@ -256,7 +256,7 @@ public class LottoValidationTest {
 
     @DisplayName("보너스 번호와 로또 번호에 중복이 있다.")
     @Test
-    void bonusNumberIsNotDuplicated() { // 실패 케이스 - 보너스 번호와 로또 번호에 중복이 있는 경우
+    void bonusNumberIsNotDuplicated() { // 예외 미발생 케이스 - 보너스 번호와 로또 번호에 중복이 있는 경우
         // given
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
         String expectedMessage = "[ERROR] 로또 번호와 보너스 번호에 중복이 있으면 안 됩니다.";
