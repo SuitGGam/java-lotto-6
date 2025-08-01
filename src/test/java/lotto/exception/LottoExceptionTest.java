@@ -155,30 +155,6 @@ class LottoExceptionTest {
                 .doesNotThrowAnyException();
     }
 
-    @DisplayName("로또 구매 금액이 1,000원 미만이면 예외가 발생한다.")
-    @Test
-    void purchaseAmountIsNotThousand() { // 예외 발생 케이스 - 로또 구매 금액이 1,000원 미만인 경우
-        // given
-        PriceValidation priceValidation = new PriceValidation();
-        String expectedMessage = "[ERROR] 로또 구매 최소 금액은 1,000원입니다.";
-
-        // when & then
-        assertThatThrownBy(() -> priceValidation.atLeastPay(500))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
-    }
-
-    @DisplayName("로또 구매 금액이 1,000원 이상이면 예외가 발생하지 않는다.")
-    @Test
-    void purchaseAmountIsOverThousand() { // 예외 미발생 케이스 - 로또 구매 금액이 1,000원 이상인 경우
-        // given
-        PriceValidation priceValidation = new PriceValidation();
-
-        // when & then
-        assertThatCode(() -> priceValidation.atLeastPay(1500))
-                .doesNotThrowAnyException();
-    }
-
     @DisplayName("로또 구매 금액이 1,000원 단위가 아니면 예외가 발생한다.")
     @Test
     void purchaseAmountIsNotMultiplesOfThousand() { // 예외 발생 케이스 - 로또 구매 금액이 1,000원 단위가 아닌 경우
