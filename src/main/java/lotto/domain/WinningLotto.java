@@ -15,4 +15,8 @@ public class WinningLotto {
         lottoNumbersValidation.areDuplicated(winningNumbers);
         this.winningNumbers = winningNumbers;
     }
+
+    public List<Integer> getWinningNumbers() {
+        return winningNumbers;
+    }
 }
