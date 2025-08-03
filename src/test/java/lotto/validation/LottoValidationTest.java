@@ -1,5 +1,9 @@
 package lotto.validation;
 
+import lotto.exception.LottoNumberCountException;
+import lotto.exception.LottoNumberDuplicatedException;
+import lotto.exception.LottoNumberRangeException;
+import lotto.exception.LottoPriceUnitException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -100,7 +104,7 @@ public class LottoValidationTest {
         
         // when & then
         assertThatThrownBy(() -> priceValidation.isMultiplesOfThousand(pay))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(LottoPriceUnitException.class)
                 .hasMessageContaining(expectedMessage);
     }
 
@@ -123,7 +127,7 @@ public class LottoValidationTest {
         
         // when & then
         assertThatThrownBy(() -> lottoNumbersValidation.areSix(List.of(1, 2, 3, 4, 5, 6, 7)))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(LottoNumberCountException.class)
                 .hasMessageContaining(expectedMessage);
     }
 
@@ -146,7 +150,7 @@ public class LottoValidationTest {
         
         // when & then
         assertThatThrownBy(() -> lottoNumbersValidation.areValidRange(List.of(1, 2, 3, 4, 5, 67)))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(LottoNumberRangeException.class)
                 .hasMessageContaining(expectedMessage);
     }
 
@@ -169,30 +173,7 @@ public class LottoValidationTest {
         
         // when & then
         assertThatThrownBy(() -> lottoNumbersValidation.areDuplicated(List.of(1, 2, 3, 4, 5, 5)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(expectedMessage);
-    }
-
-    @DisplayName("보너스 번호가 1개이다.")
-    @Test
-    void bonusNumberisOne() { // 성공 케이스 - 보너스 번호가 1개인 경우
-        // given
-        BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
-
-        // when & then
-        assertThat(bonusNumberValidation.isOne(List.of(1))).isEqualTo(true);
-    }
-
-    @DisplayName("보너스 번호가 1개가 아니다.")
-    @Test
-    void bonusNumberisNotOne() { // 실패 케이스 - 보너스 번호가 1개가 아닌 경우
-        // given
-        BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
-        String expectedMessage = "[ERROR] 보너스 번호는 1개만 입력해 주세요.";
-        
-        // when & then
-        assertThatThrownBy(() -> bonusNumberValidation.isOne(List.of(1, 2)))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(LottoNumberDuplicatedException.class)
                 .hasMessageContaining(expectedMessage);
     }
 
@@ -203,7 +184,7 @@ public class LottoValidationTest {
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
 
         // when & then
-        assertThat(bonusNumberValidation.isValidRange(List.of(7))).isEqualTo(true);
+        assertThat(bonusNumberValidation.isValidRange(7)).isEqualTo(true);
     }
 
     @DisplayName("보너스 번호가 1 ~ 45 범위 밖에 있다.")
@@ -214,8 +195,8 @@ public class LottoValidationTest {
         String expectedMessage = "[ERROR] 보너스 번호는 1 ~ 45 사이의 숫자로 입력해 주세요.";
         
         // when & then
-        assertThatThrownBy(() -> bonusNumberValidation.isValidRange(List.of(67)))
-                .isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() -> bonusNumberValidation.isValidRange(67))
+                .isInstanceOf(LottoNumberRangeException.class)
                 .hasMessageContaining(expectedMessage);
     }
 
@@ -226,7 +207,7 @@ public class LottoValidationTest {
         BonusNumberValidation bonusNumberValidation = new BonusNumberValidation();
 
         // when & then
-        assertThat(bonusNumberValidation.isDuplicated(List.of(1, 2, 3, 4, 5, 6), List.of(7))).isEqualTo(true);
+        assertThat(bonusNumberValidation.isDuplicated(List.of(1, 2, 3, 4, 5, 6), 7)).isEqualTo(true);
     }
 
     @DisplayName("보너스 번호와 로또 번호에 중복이 있다.")
@@ -237,8 +218,8 @@ public class LottoValidationTest {
         String expectedMessage = "[ERROR] 로또 번호와 보너스 번호에 중복이 있으면 안 됩니다.";
         
         // when & then
-        assertThatThrownBy(() -> bonusNumberValidation.isDuplicated(List.of(1, 2, 3, 4, 5, 6), List.of(6)))
-                .isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() -> bonusNumberValidation.isDuplicated(List.of(1, 2, 3, 4, 5, 6), 6))
+                .isInstanceOf(LottoNumberDuplicatedException.class)
                 .hasMessageContaining(expectedMessage);
     }
 }
