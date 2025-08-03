@@ -1,10 +1,5 @@
 package lotto.view;
 
-import lotto.domain.LottoConstants;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class LottoInputView {
     
     public void inputProcessPay() {
