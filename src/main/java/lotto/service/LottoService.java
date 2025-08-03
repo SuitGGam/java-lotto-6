@@ -2,20 +2,17 @@ package lotto.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import lotto.domain.LottoConstants;
+import lotto.util.LottoUtil;
 import lotto.validation.PriceValidation;
-import lotto.view.LottoInputView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LottoService {
 
     public List<Integer>[] runBuy(String pay) {
-        LottoInputView lottoInputView = new LottoInputView();
+        LottoUtil lottoUtil = new LottoUtil();
         
-        int value = lottoInputView.preProcessPay(pay);
+        int value = lottoUtil.preProcessPay(pay);
         int count = buyLotto(value);
         List<Integer>[] issueLotto = issueLotto(count);
         
@@ -23,11 +20,10 @@ public class LottoService {
     }
     
     public int[] runConfirm(String winningLotto, String bonusNumber, List<Integer>[] issuedLotties) {
-        LottoInputView lottoInputView = new LottoInputView();
+        LottoUtil lottoUtil = new LottoUtil();
         
-        List<Integer> winningNumbers = lottoInputView.preProcessWinningLotto(winningLotto);
-        List<Integer> winningBouns   = lottoInputView.preProcessBonusNumber(bonusNumber);
-        
+        List<Integer> winningNumbers = lottoUtil.preProcessWinningLotto(winningLotto);
+        int winningBouns = lottoUtil.preProcessBonusNumber(bonusNumber);
         int[] rank = confirmWinning(winningNumbers, winningBouns, issuedLotties);
         
         return rank;
@@ -35,9 +31,9 @@ public class LottoService {
     
     public int buyLotto(int pay) {
         PriceValidation priceValidation = new PriceValidation();
-        priceValidation.atLeastPay(pay);
         priceValidation.isMultiplesOfThousand(pay);
         int lottiesCount = pay / LottoConstants.LOTTO_PRICE;
+
         return lottiesCount;
     }
     
@@ -52,35 +48,24 @@ public class LottoService {
         return issuedLotties;
     }
     
-    public int[] confirmWinning(List<Integer> winningLotto, List<Integer> bonusNumber, List<Integer>[] issuedLotties) {
+    public int[] confirmWinning(List<Integer> winningLotto, int bonusNumber, List<Integer>[] issuedLotties) {
         LottoConstants lottoConstants = new LottoConstants();
         int[] rank = new int[lottoConstants.LOTTO_RANK];
-        
-        for (int i = 0; i < issuedLotties.length; i++) {
-            int sameNumbers  = 0;
-            int sameBonusNum = 0;
-            
-            for (int j = 0; j < lottoConstants.LOTTO_NUMBER_COUNT; j++) {
-                for (int k = 0; k < lottoConstants.LOTTO_NUMBER_COUNT; k++) {
-                    if (winningLotto.get(j) == issuedLotties[i].get(k)) {
-                        sameNumbers++;
-                        break;
-                    }
-                    
-                    if (bonusNumber.get(0) == issuedLotties[i].get(k)) {
-                        sameBonusNum++;
-                        break;
-                    }
-                }
+
+        Set<Integer> winningSet = new HashSet<>(winningLotto);
+
+        for (List<Integer> lotto : issuedLotties) {
+            int sameCount = 0;
+            boolean sameBonus = false;
+
+            for (Integer num : lotto) {
+                if (winningSet.contains(num)) sameCount++;
+                if (num == bonusNumber) sameBonus = true;
             }
-            
-            int sumSameNumbers = sameNumbers + sameBonusNum;
-            if (sumSameNumbers >= 3) rank[sumSameNumbers - 3]++;
-            
-            if (sameNumbers == 6) {
-                rank[3]--;
-                rank[4]++;
-            }
+
+            if (sameCount == 6) rank[4]++;
+            else if (sameCount == 5 && sameBonus) rank[3]++;
+            else if (sameCount >= 3) rank[sameCount - 3]++;
         }
         
         return rank;
@@ -91,8 +76,8 @@ public class LottoService {
         
         LottoConstants lottoConstants = new LottoConstants();
         
-        long[] price = {5000, 50000, 1500000, 30000000, 2000000000};
-        long totalWinning = 0;
+        long[] price = {5000L, 50000L, 1500000L, 30000000L, 2000000000L};
+        long totalWinning = 0L;
         for (int i = 0; i < lottoConstants.LOTTO_RANK; i++) {
             totalWinning += (long) rank[i] * price[i];
         }
