@@ -1,5 +1,6 @@
 package lotto.service;
 
+import lotto.exception.LottoPriceUnitException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ public class LottoServiceTest {
         
         // when & then
         assertThatThrownBy(() -> lottoService.buyLotto(pay))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(LottoPriceUnitException.class);
     }
     
     @DisplayName("로또를 발행한다.")
@@ -56,7 +57,7 @@ public class LottoServiceTest {
         
         // when & then
         assertThatThrownBy(() -> lottoService.issueLotto(lottoService.buyLotto(pay)))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(LottoPriceUnitException .class);
     }
     
     @DisplayName("로또 당첨 여부를 확인한다.")
@@ -68,7 +69,7 @@ public class LottoServiceTest {
         tmpIssuedLotto[0] = List.of(1, 2, 3, 4, 5, 6);
         
         // when & then
-        assertThatCode(() -> lottoService.confirmWinning(List.of(1, 2, 3, 4, 5, 6), List.of(7), tmpIssuedLotto))
+        assertThatCode(() -> lottoService.confirmWinning(List.of(1, 2, 3, 4, 5, 6), 7, tmpIssuedLotto))
                 .doesNotThrowAnyException();
     }
     
@@ -81,7 +82,7 @@ public class LottoServiceTest {
         tmpIssuedLotto[0] = List.of(1, 2, 3, 4, 5);
         
         // when & then
-        assertThatThrownBy(() -> lottoService.confirmWinning(List.of(1, 2, 3, 4, 5, 6), List.of(7), tmpIssuedLotto))
+        assertThatThrownBy(() -> lottoService.confirmWinning(List.of(1, 2, 3, 4, 5, 6), 7, tmpIssuedLotto))
                 .isInstanceOf(ArrayIndexOutOfBoundsException.class);
     }
     

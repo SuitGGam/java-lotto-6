@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 public class LottoUtilTest {
     
@@ -13,9 +13,9 @@ public class LottoUtilTest {
     void lottoNumbersAreNotSix() { // 성공 케이스 - 문자열을 정수형 변환에 성공한 경우
         // given
         LottoUtil lottoUtil = new LottoUtil();
-        
+
         // when & then
-        assertThat(lottoUtil.preProcessStringToInteger("1,2,3,4,5,6"))
+        assertThatCode(() -> lottoUtil.preProcessWinningLotto("1,2,3,4,5,6"))
                 .doesNotThrowAnyException();
     }
     
@@ -26,7 +26,7 @@ public class LottoUtilTest {
         LottoUtil lottoUtil = new LottoUtil();
         
         // when & then
-        assertThatThrownBy(() -> lottoUtil.preProcessStringToInteger("1.2.3.4.5.6"))
-                .isInstanceOf(NumberformatException.class);
+        assertThatThrownBy(() -> lottoUtil.preProcessWinningLotto("1.2.3.4.5.6"))
+                .isInstanceOf(NumberFormatException.class);
     }
 }
