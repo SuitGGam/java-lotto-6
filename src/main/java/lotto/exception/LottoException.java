@@ -20,18 +20,6 @@ public class LottoException {
         }
     }
 
-    public class BonusNumberCountException extends RuntimeException {
-        public BonusNumberCountException(String message) {
-            super(message);
-        }
-    }
-
-    public class BonusNumberRangeException extends RuntimeException {
-        public BonusNumberRangeException(String message) {
-            super(message);
-        }
-    }
-
     public class LottoUnitException extends RuntimeException {
         public LottoUnitException(String message) {
             super(message);
